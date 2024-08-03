@@ -40,6 +40,15 @@ public class ClienteController {
         }
     }
 
+    public String buscarTodosClientes() {
+        try {
+            return apiClient.sendGetRequest("/cliente/buscar-todos");
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Erro ao obter dados de cliente: " + e.getMessage());
+        }
+        return null;
+    }
+
     private void validarInputs(String codigo, String nome, BigDecimal limiteCompra) {
         if (codigo == null || codigo.trim().isEmpty()) {
             throw new IllegalArgumentException("O código não pode ser nulo ou vazio.");
