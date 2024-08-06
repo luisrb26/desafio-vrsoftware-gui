@@ -52,4 +52,31 @@ public class PedidoController {
             JOptionPane.showMessageDialog(null, "Erro inesperado: " + e.getMessage());
         }
     }
+
+    public List<PedidoResponse> buscarTodosPedidosComItens() {
+        try {
+            String jsonResponse = apiClient.sendGetRequest("/pedido/buscar-todos-com-itens");
+
+            PedidoResponse[] pedidoArray = this.gson.fromJson(jsonResponse, PedidoResponse[].class);
+
+            return Arrays.asList(pedidoArray);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Erro ao obter dados de cliente: " + e.getMessage());
+        }
+        return null;
+    }
+    
+     public List<ItemPedido> buscarItens() {
+        try {
+            String jsonResponse = apiClient.sendGetRequest("/pedido/item-pedido");
+
+            ItemPedido[] pedidoArray = this.gson.fromJson(jsonResponse, ItemPedido[].class);
+
+            return Arrays.asList(pedidoArray);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Erro ao obter dados de cliente: " + e.getMessage());
+        }
+        return null;
+    }
+
 }
