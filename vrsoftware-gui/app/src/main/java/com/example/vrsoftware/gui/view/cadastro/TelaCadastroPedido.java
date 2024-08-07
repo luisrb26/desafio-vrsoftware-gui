@@ -57,7 +57,6 @@ public class TelaCadastroPedido extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jTextFieldCodigoCliente = new javax.swing.JTextField();
         jLabelCodigoCliente = new javax.swing.JLabel();
-        jButtonSelecionarCliente = new javax.swing.JButton();
         jTextFieldNome = new javax.swing.JTextField();
         jLabelNome = new javax.swing.JLabel();
         jTextFieldLimiteCompra = new javax.swing.JTextField();
@@ -158,13 +157,6 @@ public class TelaCadastroPedido extends javax.swing.JFrame {
 
         jLabelCodigoCliente.setText("Código");
 
-        jButtonSelecionarCliente.setText("Selecionar Cliente");
-        jButtonSelecionarCliente.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonSelecionarClienteActionPerformed(evt);
-            }
-        });
-
         jTextFieldNome.setEditable(false);
         jTextFieldNome.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -209,12 +201,7 @@ public class TelaCadastroPedido extends javax.swing.JFrame {
                             .addComponent(jTextFieldNome)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jComboBoxListaClientes, javax.swing.GroupLayout.PREFERRED_SIZE, 550, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel1))
-                                .addGap(31, 31, 31)
-                                .addComponent(jButtonSelecionarCliente))
+                            .addComponent(jLabel1)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addGroup(jPanel1Layout.createSequentialGroup()
@@ -226,7 +213,8 @@ public class TelaCadastroPedido extends javax.swing.JFrame {
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabelDiaFechamento)
                                     .addComponent(jTextFieldDiaFechamento, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addGap(0, 410, Short.MAX_VALUE))
+                    .addComponent(jComboBoxListaClientes, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(21, 21, 21))
         );
         jPanel1Layout.setVerticalGroup(
@@ -235,9 +223,7 @@ public class TelaCadastroPedido extends javax.swing.JFrame {
                 .addGap(11, 11, 11)
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jComboBoxListaClientes, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButtonSelecionarCliente))
+                .addComponent(jComboBoxListaClientes, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
@@ -451,7 +437,7 @@ public class TelaCadastroPedido extends javax.swing.JFrame {
                     clienteId = cliente.getId();
                 }
             }
-            
+
             pedidoController.cadastrarPedido(clienteId, produtosIds, quantidades);
         } catch (IOException e) {
             JOptionPane.showMessageDialog(null, "Erro ao inicializar o pedido: " + e.getMessage());
@@ -513,10 +499,6 @@ public class TelaCadastroPedido extends javax.swing.JFrame {
         }
         return null; // Retorna null se o código não for encontrado
     }
-
-    private void jButtonSelecionarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSelecionarClienteActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButtonSelecionarClienteActionPerformed
 
     private void jTextFieldNomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldNomeActionPerformed
         // TODO add your handling code here:
@@ -618,7 +600,6 @@ public class TelaCadastroPedido extends javax.swing.JFrame {
     private javax.swing.JButton jButtonAdicionarProduto;
     private javax.swing.JButton jButtonCancelar;
     private javax.swing.JButton jButtonSalvar;
-    private javax.swing.JButton jButtonSelecionarCliente;
     private javax.swing.JComboBox<String> jComboBoxListaClientes;
     private javax.swing.JComboBox<String> jComboBoxListaProdutos;
     private javax.swing.JDialog jDialog1;
