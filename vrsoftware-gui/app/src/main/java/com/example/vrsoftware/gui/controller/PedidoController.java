@@ -6,6 +6,7 @@ package com.example.vrsoftware.gui.controller;
 
 import com.example.vrsoftware.gui.dto.PedidoResponse;
 import com.example.vrsoftware.gui.model.ItemPedido;
+import com.example.vrsoftware.gui.model.Pedido;
 import com.example.vrsoftware.gui.utils.ApiClient;
 import com.google.gson.Gson;
 import java.util.Arrays;
@@ -45,7 +46,9 @@ public class PedidoController {
 
             // Enviar a requisição POST
             String response = apiClient.sendPostRequest("/pedido/cadastrar", jsonInputString);
-            JOptionPane.showMessageDialog(null, "Resposta da API: " + response);
+            Pedido resposta = this.gson.fromJson(response, Pedido.class);
+            
+            JOptionPane.showMessageDialog(null, "Pedido cadastrado com sucesso!  Pedido: " + resposta.getId());
         } catch (IllegalArgumentException e) {
             JOptionPane.showMessageDialog(null, "Erro de validação: " + e.getMessage());
         } catch (Exception e) {
