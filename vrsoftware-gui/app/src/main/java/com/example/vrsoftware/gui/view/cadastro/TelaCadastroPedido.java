@@ -472,6 +472,10 @@ public class TelaCadastroPedido extends javax.swing.JFrame {
             // Itera pelas linhas da tabela
             for (int i = 0; i < model.getRowCount(); i++) {
                 String codigo = (String) model.getValueAt(i, 0); // Código do produto na tabela
+        if (clienteSelecionado.getLimiteCompra().compareTo(total) < 0) {
+            JOptionPane.showMessageDialog(null, "Você não tem limite de crédito disponível. Não é possível adicionar o produto!");
+            return;
+        }
 
                 if (codigo.equals(produtoSelecionado.getCodigo())) {
                     int quantidadeAtual = (Integer) model.getValueAt(i, 1);
