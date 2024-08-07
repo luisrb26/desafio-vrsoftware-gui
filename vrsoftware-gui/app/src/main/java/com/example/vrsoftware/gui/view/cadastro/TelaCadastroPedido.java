@@ -432,8 +432,8 @@ public class TelaCadastroPedido extends javax.swing.JFrame {
 
             // Iterar sobre as linhas da tabela e extrair os dados
             for (int i = 0; i < model.getRowCount(); i++) {
-                String codigoProduto = (String) model.getValueAt(i, 0); 
-                Integer quantidade = (Integer) model.getValueAt(i, 1); 
+                String codigoProduto = (String) model.getValueAt(i, 0);
+                Integer quantidade = (Integer) model.getValueAt(i, 1);
 
                 Long produtoId = obterIdPorCodigo(codigoProduto);
                 if (produtoId != null) {
@@ -444,10 +444,14 @@ public class TelaCadastroPedido extends javax.swing.JFrame {
                     return;
                 }
             }
-            
-            //TODO: Pegar dados do cliente dinamicamente
-            int clienteId = 1;
 
+            Long clienteId = 0L;
+            for (Cliente cliente : this.clientes) {
+                if (cliente.getCodigo().equals(jTextFieldCodigoCliente.getText())) {
+                    clienteId = cliente.getId();
+                }
+            }
+            
             pedidoController.cadastrarPedido(clienteId, produtosIds, quantidades);
         } catch (IOException e) {
             JOptionPane.showMessageDialog(null, "Erro ao inicializar o pedido: " + e.getMessage());

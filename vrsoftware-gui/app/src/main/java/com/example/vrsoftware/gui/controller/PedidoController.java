@@ -27,7 +27,7 @@ public class PedidoController {
         this.apiClient = apiClient;
     }
 
-    public void cadastrarPedido(int clienteId, List<Integer> produtosIds, List<Integer> quantidades) {
+    public void cadastrarPedido(Long clienteId, List<Integer> produtosIds, List<Integer> quantidades) {
         try {
             // Validar que os arrays têm o mesmo tamanho
             if (produtosIds.size() != quantidades.size()) {
