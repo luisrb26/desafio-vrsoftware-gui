@@ -4,17 +4,30 @@
  */
 package com.example.vrsoftware.gui.view;
 
+import com.example.vrsoftware.gui.view.cadastro.TelaCadastroCliente;
+import com.example.vrsoftware.gui.view.cadastro.TelaCadastroPedido;
+import com.example.vrsoftware.gui.view.cadastro.TelaCadastroProduto;
+import com.example.vrsoftware.gui.view.consulta.TelaConsultaCliente;
+import com.example.vrsoftware.gui.view.consulta.TelaConsultaPedido;
+import com.example.vrsoftware.gui.view.consulta.TelaConsultaProduto;
+import java.util.HashMap;
+import java.util.Map;
+import javax.swing.JFrame;
+
 /**
  *
  * @author Gabriel
  */
 public class TelaPrincipal extends javax.swing.JFrame {
 
+    private Map<String, JFrame> janelasAbertas;
+
     /**
      * Creates new form TelaPrincipal
      */
     public TelaPrincipal() {
         initComponents();
+        janelasAbertas = new HashMap<>();
     }
 
     /**
@@ -73,6 +86,11 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jMenuProduto.add(jMenuItemConsultarProduto);
 
         jMenuItemCadastrarProduto.setText("Cadastrar");
+        jMenuItemCadastrarProduto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemCadastrarProdutoActionPerformed(evt);
+            }
+        });
         jMenuProduto.add(jMenuItemCadastrarProduto);
 
         jMenuBarTelaPrincipal.add(jMenuProduto);
@@ -80,6 +98,11 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jMenuCliente.setText("Cliente");
 
         jMenuItemConsultarCliente.setText("Consultar");
+        jMenuItemConsultarCliente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemConsultarClienteActionPerformed(evt);
+            }
+        });
         jMenuCliente.add(jMenuItemConsultarCliente);
 
         jMenuItemCadastrarCliente.setText("Cadastrar");
@@ -102,7 +125,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 578, Short.MAX_VALUE)
+            .addGap(0, 577, Short.MAX_VALUE)
         );
 
         pack();
@@ -110,20 +133,45 @@ public class TelaPrincipal extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jMenuItemCadastrarPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemCadastrarPedidoActionPerformed
-        // TODO add your handling code here:
+        abrirJanela("TelaCadastroPedido", new TelaCadastroPedido());
     }//GEN-LAST:event_jMenuItemCadastrarPedidoActionPerformed
 
     private void jMenuItemConsultarProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemConsultarProdutoActionPerformed
-        // TODO add your handling code here:
+        abrirJanela("TelaConsultaProduto", new TelaConsultaProduto());
     }//GEN-LAST:event_jMenuItemConsultarProdutoActionPerformed
 
     private void jMenuItemConsultarPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemConsultarPedidoActionPerformed
-        // TODO add your handling code here:
+        abrirJanela("TelaConsultaPedido", new TelaConsultaPedido());
     }//GEN-LAST:event_jMenuItemConsultarPedidoActionPerformed
 
     private void jMenuItemCadastrarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemCadastrarClienteActionPerformed
-        // TODO add your handling code here:
+        abrirJanela("TelaCadastroCliente", new TelaCadastroCliente());
     }//GEN-LAST:event_jMenuItemCadastrarClienteActionPerformed
+
+    private void jMenuItemCadastrarProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemCadastrarProdutoActionPerformed
+        abrirJanela("TelaCadastroProduto", new TelaCadastroProduto());
+    }//GEN-LAST:event_jMenuItemCadastrarProdutoActionPerformed
+
+    private void jMenuItemConsultarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemConsultarClienteActionPerformed
+        abrirJanela("TelaConsultaCliente", new TelaConsultaCliente());
+    }//GEN-LAST:event_jMenuItemConsultarClienteActionPerformed
+
+    private void abrirJanela(String nomeFrame, JFrame frame) {
+        if (!janelasAbertas.containsKey(nomeFrame)) {
+            janelasAbertas.put(nomeFrame, frame);
+            frame.setVisible(true);
+            frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+            frame.addWindowListener(new java.awt.event.WindowAdapter() {
+                @Override
+                public void windowClosing(java.awt.event.WindowEvent e) {
+                    janelasAbertas.remove(nomeFrame);
+                }
+            });
+        } else {
+            janelasAbertas.get(nomeFrame).toFront();
+            janelasAbertas.get(nomeFrame).requestFocus();
+        }
+    }
 
     /**
      * @param args the command line arguments

@@ -6,14 +6,8 @@ package com.example.vrsoftware.gui;
 import com.example.vrsoftware.gui.view.TelaPrincipal;
 
 public class App {
-    public String getGreeting() {
-        return "Hello World!";
-    }
-
+ 
     public static void main(String[] args) {
-        // Exibe a saudação no console
-        System.out.println(new App().getGreeting());
-
         // Cria e exibe a TelaPrincipal
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
