@@ -8,6 +8,7 @@ import com.example.vrsoftware.gui.controller.PedidoController;
 import com.example.vrsoftware.gui.dto.ClienteTesteDTO;
 import com.example.vrsoftware.gui.utils.ApiClient;
 import com.example.vrsoftware.gui.dto.PedidoResponse;
+import com.example.vrsoftware.gui.dto.ProdutoTabelaDTO;
 import com.example.vrsoftware.gui.model.ItemPedido;
 import com.google.gson.Gson;
 import java.math.BigDecimal;
@@ -44,6 +45,8 @@ public class TelaConsultaPedido extends javax.swing.JFrame {
 
         // TODO: Revisar tratamento de exceções
         try {
+
+            //TODO: Refatorar lógica de carregamento das abas
             ApiClient apiClient = new ApiClient("config.properties");
             Gson gson = new Gson();
 
@@ -52,7 +55,7 @@ public class TelaConsultaPedido extends javax.swing.JFrame {
             List<PedidoResponse> pedidos = pedidoController.buscarTodosPedidosComItens();
 
             List<ItemPedido> listaPedidos = pedidoController.buscarItens();
-            
+
             // COMEÇO PARTE CARREGAMENTO POR PEDIDO
             pedidos.forEach(pedido -> {
                 Object[] dado = criarDadoParaTabelaPorPedido(pedido);
@@ -61,7 +64,10 @@ public class TelaConsultaPedido extends javax.swing.JFrame {
 
             List<ClienteTesteDTO> clientes = new ArrayList<>();
             Map<String, ClienteTesteDTO> mapaClientes = new HashMap<>();
-  
+
+            List<ProdutoTabelaDTO> produtos = new ArrayList<>();
+            Map<String, ProdutoTabelaDTO> mapaProdutos = new HashMap<>();
+
             // COMEÇO PARTE CARREGAMENTO POR CLIENTE
             listaPedidos.forEach(pedido -> {
                 String nomeCliente = pedido.getPedido().getCliente().getNome();
@@ -81,13 +87,36 @@ public class TelaConsultaPedido extends javax.swing.JFrame {
                     mapaClientes.put(nomeCliente, novoCliente);
                     clientes.add(novoCliente);
                 }
+                String nomeProduto = pedido.getProduto().getDescricao();
+                BigDecimal valorTotal = pedido.getPrecoUnitario().multiply(new BigDecimal(pedido.getQuantidade()));
+
+                if (mapaProdutos.containsKey(nomeProduto)) {
+                    ProdutoTabelaDTO produtoExistente = mapaProdutos.get(nomeProduto);
+                    produtoExistente.setValorTotal(produtoExistente.getValorTotal().add(valorTotal));
+                } else {
+                    ProdutoTabelaDTO novoProduto = new ProdutoTabelaDTO(
+                            pedido.getProduto().getCodigo(),
+                            pedido.getProduto().getDescricao(),
+                            valorTotal
+                    );
+                    mapaProdutos.put(nomeProduto, novoProduto);
+                    produtos.add(novoProduto);
+                }
             });
 
             clientes.forEach(cliente -> {
                 modelPorCliente.addRow(new Object[]{
                     cliente.getCodigo(),
                     cliente.getNome(),
-                    cliente.getPreco()
+                    "R$ " + cliente.getPreco()
+                });
+            });
+
+            produtos.forEach(produto -> {
+                modelPorProduto.addRow(new Object[]{
+                    produto.getCodigo(),
+                    produto.getDescricao(),
+                    "R$ " + produto.getValorTotal()
                 });
             });
 
