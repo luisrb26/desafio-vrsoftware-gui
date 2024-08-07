@@ -5,6 +5,7 @@
 package com.example.vrsoftware.gui.controller;
 
 import com.example.vrsoftware.gui.model.Cliente;
+import com.example.vrsoftware.gui.model.Pedido;
 import com.example.vrsoftware.gui.utils.ApiClient;
 import com.google.gson.Gson;
 import java.io.IOException;
@@ -31,8 +32,11 @@ public class ClienteController {
             validarInputs(codigo, nome, limiteCompra);
             Cliente cliente = new Cliente(codigo, nome, limiteCompra, diaFechamento);
             String jsonInputString = gson.toJson(cliente);
-            String response = apiClient.sendPostRequest("/cliente/cadastrar", jsonInputString);
-            JOptionPane.showMessageDialog(null, "Resposta da API: " + response);
+            String jsonResponse = apiClient.sendPostRequest("/cliente/cadastrar", jsonInputString);
+            
+            Cliente resposta = this.gson.fromJson(jsonResponse, Cliente.class);
+            
+            JOptionPane.showMessageDialog(null, "Cliente cadastrado com sucesso!");
         } catch (IllegalArgumentException e) {
             JOptionPane.showMessageDialog(null, "Erro de validação: " + e.getMessage());
         } catch (Exception e) {
