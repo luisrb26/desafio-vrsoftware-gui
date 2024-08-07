@@ -431,6 +431,12 @@ public class TelaCadastroPedido extends javax.swing.JFrame {
                 }
             }
 
+            
+            if (produtosIds.size() <= 0) {
+                JOptionPane.showMessageDialog(null, "Você precisa adicionar pelo menos um produto no seu pedido!");
+                return;
+            }
+            
             Long clienteId = 0L;
             for (Cliente cliente : this.clientes) {
                 if (cliente.getCodigo().equals(jTextFieldCodigoCliente.getText())) {
