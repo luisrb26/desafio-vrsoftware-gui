@@ -25,6 +25,7 @@ import javax.swing.table.DefaultTableModel;
 public class TelaCadastroPedido extends javax.swing.JFrame {
 
     public Cliente[] clientes = new Cliente[0];
+    private Cliente clienteSelecionado;
     private Produto[] produtos;
 
     /**
@@ -388,14 +389,18 @@ public class TelaCadastroPedido extends javax.swing.JFrame {
 
     private void jComboBoxListaClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxListaClientesActionPerformed
         // TODO add your handling code here:
+        DefaultTableModel model = (DefaultTableModel) jTableProdutos.getModel();
+        // Reseta lista de pedidos
+        model.setRowCount(0);
+
         int selectedIndex = jComboBoxListaClientes.getSelectedIndex();
 
         if (selectedIndex != -1 && clientes != null) {
-            Cliente clienteSelecionado = clientes[selectedIndex];
+            clienteSelecionado = clientes[selectedIndex];
 
             jTextFieldCodigoCliente.setText(clienteSelecionado.getCodigo());
             jTextFieldNome.setText(clienteSelecionado.getNome());
-            jTextFieldLimiteCompra.setText(clienteSelecionado.getLimiteCompra().toString());
+            jTextFieldLimiteCompra.setText("R$ " + clienteSelecionado.getLimiteCompra().toString());
             jTextFieldDiaFechamento.setText(String.valueOf(clienteSelecionado.getDiaFechamento()));
         }
     }//GEN-LAST:event_jComboBoxListaClientesActionPerformed
@@ -430,7 +435,6 @@ public class TelaCadastroPedido extends javax.swing.JFrame {
                     return;
                 }
             }
-
             
             if (produtosIds.size() <= 0) {
                 JOptionPane.showMessageDialog(null, "Você precisa adicionar pelo menos um produto no seu pedido!");
@@ -452,52 +456,46 @@ public class TelaCadastroPedido extends javax.swing.JFrame {
 
     private void jButtonAdicionarProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAdicionarProdutoActionPerformed
         DefaultTableModel model = (DefaultTableModel) jTableProdutos.getModel();
-
         int selectedIndex = jComboBoxListaProdutos.getSelectedIndex();
 
-        if (selectedIndex != -1 && produtos != null) {
-            Produto produtoSelecionado = produtos[selectedIndex];
+        if (selectedIndex == -1 || produtos == null) {
+            return;
+        }
 
-            int quantidade = (Integer) jSpinnerQuantidade.getValue();
-            jSpinnerQuantidade.setValue(1);
+        Produto produtoSelecionado = produtos[selectedIndex];
+        int quantidade = (Integer) jSpinnerQuantidade.getValue();
+        jSpinnerQuantidade.setValue(1);
 
-            BigDecimal preco = produtoSelecionado.getPreco();
+        BigDecimal preco = produtoSelecionado.getPreco();
+        BigDecimal total = preco.multiply(BigDecimal.valueOf(quantidade));
 
-            BigDecimal quantidadeBD = BigDecimal.valueOf(quantidade);
-
-            BigDecimal total = preco.multiply(quantidadeBD);
-
-            boolean produtoEncontrado = false;
-
-            // Itera pelas linhas da tabela
-            for (int i = 0; i < model.getRowCount(); i++) {
-                String codigo = (String) model.getValueAt(i, 0); // Código do produto na tabela
         if (clienteSelecionado.getLimiteCompra().compareTo(total) < 0) {
             JOptionPane.showMessageDialog(null, "Você não tem limite de crédito disponível. Não é possível adicionar o produto!");
             return;
         }
 
-                if (codigo.equals(produtoSelecionado.getCodigo())) {
-                    int quantidadeAtual = (Integer) model.getValueAt(i, 1);
-                    quantidadeAtual += quantidade;
+        boolean produtoEncontrado = false;
 
-                    model.setValueAt(quantidadeAtual, i, 1);
-                    model.setValueAt(preco.multiply(BigDecimal.valueOf(quantidadeAtual)), i, 4);
+        for (int i = 0; i < model.getRowCount(); i++) {
+            String codigo = (String) model.getValueAt(i, 0);
 
-                    produtoEncontrado = true;
-                    break;
-                }
+            if (codigo.equals(produtoSelecionado.getCodigo())) {
+                int quantidadeAtual = (Integer) model.getValueAt(i, 1) + quantidade;
+                model.setValueAt(quantidadeAtual, i, 1);
+                model.setValueAt(preco.multiply(BigDecimal.valueOf(quantidadeAtual)), i, 4);
+                produtoEncontrado = true;
+                break;
             }
+        }
 
-            if (!produtoEncontrado) {
-                model.addRow(new Object[]{
-                    produtoSelecionado.getCodigo(),
-                    quantidade,
-                    produtoSelecionado.getDescricao(),
-                    preco,
-                    total
-                });
-            }
+        if (!produtoEncontrado) {
+            model.addRow(new Object[]{
+                produtoSelecionado.getCodigo(),
+                quantidade,
+                produtoSelecionado.getDescricao(),
+                preco,
+                total
+            });
         }
     }//GEN-LAST:event_jButtonAdicionarProdutoActionPerformed
 
