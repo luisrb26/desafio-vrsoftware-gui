@@ -5,7 +5,7 @@
 package com.example.vrsoftware.gui.view.consulta;
 
 import com.example.vrsoftware.gui.controller.PedidoController;
-import com.example.vrsoftware.gui.dto.ClienteTesteDTO;
+import com.example.vrsoftware.gui.dto.ClienteTabelaDTO;
 import com.example.vrsoftware.gui.utils.ApiClient;
 import com.example.vrsoftware.gui.dto.PedidoResponse;
 import com.example.vrsoftware.gui.dto.ProdutoTabelaDTO;
@@ -62,8 +62,8 @@ public class TelaConsultaPedido extends javax.swing.JFrame {
                 modelPorPedido.addRow(dado);
             });
 
-            List<ClienteTesteDTO> clientes = new ArrayList<>();
-            Map<String, ClienteTesteDTO> mapaClientes = new HashMap<>();
+            List<ClienteTabelaDTO> clientes = new ArrayList<>();
+            Map<String, ClienteTabelaDTO> mapaClientes = new HashMap<>();
 
             List<ProdutoTabelaDTO> produtos = new ArrayList<>();
             Map<String, ProdutoTabelaDTO> mapaProdutos = new HashMap<>();
@@ -74,11 +74,11 @@ public class TelaConsultaPedido extends javax.swing.JFrame {
                 BigDecimal valorAtual = pedido.getPrecoUnitario().multiply(new BigDecimal(pedido.getQuantidade()));
 
                 if (mapaClientes.containsKey(nomeCliente)) {
-                    ClienteTesteDTO clienteExistente = mapaClientes.get(nomeCliente);
+                    ClienteTabelaDTO clienteExistente = mapaClientes.get(nomeCliente);
                     clienteExistente.setPreco(clienteExistente.getPreco().add(valorAtual));
                     clienteExistente.setQntPedidos(clienteExistente.getQntPedidos() + 1L);
                 } else {
-                    ClienteTesteDTO novoCliente = new ClienteTesteDTO(
+                    ClienteTabelaDTO novoCliente = new ClienteTabelaDTO(
                             1L,
                             pedido.getPedido().getCliente().getCodigo(),
                             nomeCliente,

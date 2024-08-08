@@ -10,15 +10,11 @@ import java.math.BigDecimal;
  *
  * @author Gabriel
  */
-public class ClienteTesteDTO {
-
-
+public class ClienteTabelaDTO {
 
     public String getCodigo() {
         return codigo;
     }
-
-
 
     public void setCodigo(String codigo) {
         this.codigo = codigo;
@@ -40,7 +36,7 @@ public class ClienteTesteDTO {
         this.preco = preco;
     }
 
-    public ClienteTesteDTO(Long qntPedidos, String codigo, String nome, BigDecimal preco) {
+    public ClienteTabelaDTO(Long qntPedidos, String codigo, String nome, BigDecimal preco) {
         this.qntPedidos = qntPedidos;
         this.codigo = codigo;
         this.nome = nome;
