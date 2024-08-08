@@ -40,8 +40,8 @@ public class TelaCadastroProduto extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         jTextFieldDescricao = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
-        jTextFieldPreco = new javax.swing.JTextField();
         jButtonCadastrar = new javax.swing.JButton();
+        jFormattedTextPreco = new javax.swing.JFormattedTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("VR Software - Mercado Fulano - Cadastro Pedido");
@@ -77,13 +77,6 @@ public class TelaCadastroProduto extends javax.swing.JFrame {
         jLabel3.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel3.setText("Preço");
 
-        jTextFieldPreco.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jTextFieldPreco.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextFieldPrecoActionPerformed(evt);
-            }
-        });
-
         jButtonCadastrar.setText("Cadastrar");
         jButtonCadastrar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -99,20 +92,20 @@ public class TelaCadastroProduto extends javax.swing.JFrame {
                 .addGap(36, 36, 36)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel2)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel1)
+                            .addComponent(jTextFieldDescricao, javax.swing.GroupLayout.PREFERRED_SIZE, 683, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 29, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel2)
                             .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jTextFieldCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 264, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(40, 40, 40)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel1)
-                                    .addComponent(jTextFieldCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 264, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(29, 29, 29)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jTextFieldPreco, javax.swing.GroupLayout.PREFERRED_SIZE, 266, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel3)))
-                            .addComponent(jTextFieldDescricao, javax.swing.GroupLayout.PREFERRED_SIZE, 683, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 29, Short.MAX_VALUE))))
+                                    .addComponent(jLabel3)
+                                    .addComponent(jFormattedTextPreco, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(330, 330, 330)
                 .addComponent(jButtonCadastrar)
@@ -128,12 +121,12 @@ public class TelaCadastroProduto extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jTextFieldCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextFieldPreco, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jFormattedTextPreco))
                 .addGap(18, 18, 18)
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jTextFieldDescricao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 105, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 93, Short.MAX_VALUE)
                 .addComponent(jButtonCadastrar)
                 .addGap(38, 38, 38))
         );
@@ -174,16 +167,26 @@ public class TelaCadastroProduto extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextFieldDescricaoActionPerformed
 
-    private void jTextFieldPrecoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldPrecoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextFieldPrecoActionPerformed
-
     private void jButtonCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCadastrarActionPerformed
 
         // Pega os valores do formulário
         String codigo = jTextFieldCodigo.getText();
+        if (codigo == null || codigo.equals("")) {
+            JOptionPane.showMessageDialog(null, "Você precisa digitar o código do produto!");
+            return;
+        }
+
         String descricao = jTextFieldDescricao.getText();
-        BigDecimal preco = new BigDecimal(jTextFieldPreco.getText());
+        if (descricao == null || descricao.equals("")) {
+            JOptionPane.showMessageDialog(null, "Você precisa digitar a descrição do produto!");
+            return;
+        }
+
+        if (jFormattedTextPreco.getText() == null || jFormattedTextPreco.getText().equals("")) {
+            JOptionPane.showMessageDialog(null, "Você precisa digitar o preço do produto!");
+            return;
+        }
+        BigDecimal preco = new BigDecimal(jFormattedTextPreco.getText());
 
         try {
             ApiClient apiClient = new ApiClient("config.properties");
@@ -236,6 +239,7 @@ public class TelaCadastroProduto extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonCadastrar;
+    private javax.swing.JFormattedTextField jFormattedTextPreco;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -243,6 +247,5 @@ public class TelaCadastroProduto extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JTextField jTextFieldCodigo;
     private javax.swing.JTextField jTextFieldDescricao;
-    private javax.swing.JTextField jTextFieldPreco;
     // End of variables declaration//GEN-END:variables
 }
