@@ -31,7 +31,7 @@ public class ProdutoController {
             Produto produto = new Produto(codigo, descricao, preco);
             String jsonInputString = gson.toJson(produto);
             String response = apiClient.sendPostRequest("/produto/cadastrar", jsonInputString);
-            JOptionPane.showMessageDialog(null, "Resposta da API: " + response);
+            JOptionPane.showMessageDialog(null, "Produto cadastrado com sucesso!");
         } catch (IllegalArgumentException e) {
             JOptionPane.showMessageDialog(null, "Erro de validação: " + e.getMessage());
         } catch (Exception e) {
