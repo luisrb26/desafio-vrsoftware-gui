@@ -130,6 +130,8 @@ public class TelaConsultaCliente extends javax.swing.JFrame {
                 .addGap(42, 42, 42))
         );
 
+        getAccessibleContext().setAccessibleName("VR Software - Consulta de Cliente");
+
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents

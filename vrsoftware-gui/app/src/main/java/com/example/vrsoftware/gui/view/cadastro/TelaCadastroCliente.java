@@ -186,6 +186,8 @@ public class TelaCadastroCliente extends javax.swing.JFrame {
                 .addGap(103, 103, 103))
         );
 
+        getAccessibleContext().setAccessibleName("VR Software - Cadastro de Cliente");
+
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents

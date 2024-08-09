@@ -137,6 +137,9 @@ public class TelaPrincipal extends javax.swing.JFrame {
                 .addContainerGap(62, Short.MAX_VALUE))
         );
 
+        getAccessibleContext().setAccessibleName("VR Software - FRESH SUPERMARKET");
+        getAccessibleContext().setAccessibleDescription("");
+
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents

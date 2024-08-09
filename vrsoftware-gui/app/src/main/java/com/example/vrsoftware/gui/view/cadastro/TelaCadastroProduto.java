@@ -155,6 +155,8 @@ public class TelaCadastroProduto extends javax.swing.JFrame {
                 .addContainerGap(91, Short.MAX_VALUE))
         );
 
+        getAccessibleContext().setAccessibleName("VR Software - Cadastro de Produto");
+
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents

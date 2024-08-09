@@ -383,6 +383,8 @@ public class TelaCadastroPedido extends javax.swing.JFrame {
                 .addContainerGap(17, Short.MAX_VALUE))
         );
 
+        getAccessibleContext().setAccessibleName("VR Software - Cadastro de Pedido");
+
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
