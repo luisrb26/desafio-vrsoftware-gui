@@ -71,6 +71,7 @@ public class TelaConsultaCliente extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("VR Software - Mercado Fulano - Cadastro Pedido");
+        setPreferredSize(new java.awt.Dimension(800, 600));
         setResizable(false);
 
         jLabelCadastro.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
